@@ -1,0 +1,25 @@
+{
+  "title": "PWA Auto Test(Beta)",
+  "appname": "is-pwa-ready",
+  "description": "auto test page for PWA",
+  "keywords": "pwa, progress web app, ready, caniuse, test, check, robot",
+  "nav": {
+    "Home": {
+      "href": "/"
+    },
+    "Reboot": {
+      "href": "/auto/"
+    },
+    "中文": {
+      "class": "lang-switch zh"
+    }
+  },
+  "note": "You can use v-console to debug. Welcome issue or pull request.",
+  "browser": "Your browser is ",
+  "os": "Your OS is ",
+  "device": "Your device is ",
+  "schedule": "You have run ",
+  "thead": ["Testcase", "Score / Note"],
+  "summary": "If you are testing a browser which i have not shown. Welcome to send this JSON to the github issue.",
+  "copy": "Copy"
+}

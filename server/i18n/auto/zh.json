@@ -1,0 +1,25 @@
+{
+  "title": "PWA自动测试(Beta)",
+  "appname": "PWA的进程",
+  "description": "测试一下您的浏览器是否支持PWA",
+  "keywords": "pwa, progress web app, ready, caniuse, test, check, robot",
+  "nav": {
+    "首页": {
+      "href": "/"
+    },
+    "重测": {
+      "href": "/auto/"
+    },
+    "English": {
+      "class": "lang-switch en"
+    }
+  },
+  "note": "您可以利用右下方的 v-console 进行调试。欢迎反馈相关信息～",
+  "browser": "您的浏览器是",
+  "os": "您的系统是",
+  "device": "您的设备是",
+  "schedule": "您已完成",
+  "thead": ["测试用例", "得分/备注"],
+  "summary": "如果您测试的浏览器我并未有展示在首页上。欢迎您将该测试得到的JSON结果复制发送到反馈页上。",
+  "copy": "复制"
+}
