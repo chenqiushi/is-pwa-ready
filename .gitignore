@@ -41,3 +41,6 @@ jspm_packages
 stc.js
 qiniu.js
 .raven.js
+
+# static site dir
+dist

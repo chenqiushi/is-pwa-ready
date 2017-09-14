@@ -5,8 +5,8 @@ import Visualizer from 'webpack-visualizer-plugin'
 import webpack from 'webpack'
 import WebpackMd5Hash from 'webpack-md5-hash'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
 export default function ({mode = 'development', port, nodePort} = {}) {
-  const qiniuPlugin = mode === 'development' ? {} : require('./qiniu.js')
   const viewRoot = './client/views/'
   const staticRoot = './static'
   const jsFiles = glob.sync(viewRoot + '*/main.js')
@@ -138,7 +138,30 @@ export default function ({mode = 'development', port, nodePort} = {}) {
             drop_console: true
           }
         }),
-        qiniuPlugin
+        // copy static assets to dist dir, generate static web page
+        new CopyWebpackPlugin([
+          {
+            from: path.resolve(__dirname, 'static/cache'),
+            to: path.resolve(__dirname, 'dist/cache')
+          },
+          {
+            from: path.resolve(__dirname, 'static/js/auto'),
+            to: path.resolve(__dirname, 'dist')
+          },
+          {
+            from: path.resolve(__dirname, 'static/manifest.json'),
+            to: path.resolve(__dirname, 'dist')
+          },
+          {
+            from: path.resolve(__dirname, 'views/index.static.html'),
+            to: path.resolve(__dirname, 'dist/index.html')
+          },
+          {
+            from: path.resolve(__dirname, 'static'),
+            to: path.resolve(__dirname, 'dist/static'),
+            ignore: ['stats.html', 'manifest.json', 'cache/']
+          }
+        ])
       ]
       : [
       ]
