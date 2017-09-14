@@ -49,7 +49,8 @@ export const featureKeys = [
 export const infoKeys = [
   'browser',
   'os',
-  'device'
+  'device',
+  'ua'
 ]
 
 export const info = {
