@@ -54,10 +54,16 @@ export default async function () {
     level: 'info'
   })
   // 发送统计
+  let id = await store.get('uuid', 'id')
+  if (!id) {
+    id = uuid();
+    await store.put('uuid', id, 'id')
+  }
   axios({
     method: 'post',
     url: 'https://lavas.baidu.com/ready/statistic',
     data: {
+      id: id,
       data: summary
     }
   })

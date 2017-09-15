@@ -159,7 +159,7 @@ export function promisifyOneTimeEventListener (fn, target, event) {
 
 // 生成uuid
 export function uuid () {
-  return (S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4())
+  return (S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4() + '-' + Date.now())
 }
 // 生成四个随机数
 export function S4 () {
