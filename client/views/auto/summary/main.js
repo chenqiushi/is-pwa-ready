@@ -5,6 +5,7 @@ import Clipboard from 'clipboard'
 import sweetAlert from 'sweetalert'
 import 'sweetalert/dist/sweetalert.css'
 import Raven from 'raven'
+import axios from 'axios'
 export default async function () {
   const summary = {
     info: {},
@@ -51,6 +52,20 @@ export default async function () {
   Raven.setUserContext(summary)
   Raven.captureMessage('test-result-' + uuid(), {
     level: 'info'
+  })
+  // 发送统计
+  let id = await store.get('uuid', 'id')
+  if (!id) {
+    id = uuid();
+    await store.put('uuid', id, 'id')
+  }
+  axios({
+    method: 'post',
+    url: 'https://lavas.baidu.com/ready/statistic',
+    data: {
+      id: id,
+      data: summary
+    }
   })
   return summary
 }
