@@ -59,4 +59,8 @@ body > article {
   body > article {
     max-width: 947px;
   }
-}  
+}
+
+#__vconsole {
+  display: none;
+}

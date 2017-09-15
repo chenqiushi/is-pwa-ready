@@ -122,7 +122,31 @@ export default function ({mode = 'development', port, nodePort} = {}) {
       }),
       new ExtractTextPlugin({filename: mode === 'development' ? 'css/[name].css' : 'css/[name]-[contenthash].css'}),
       ...htmlWebpackPlugins,
-      new Visualizer()
+      new Visualizer(),
+      // copy static assets to dist dir, generate static web page
+      new CopyWebpackPlugin([
+        {
+          from: path.resolve(__dirname, 'static/cache'),
+          to: path.resolve(__dirname, 'dist/cache')
+        },
+        {
+          from: path.resolve(__dirname, 'static/js/auto'),
+          to: path.resolve(__dirname, 'dist')
+        },
+        {
+          from: path.resolve(__dirname, 'static/manifest.json'),
+          to: path.resolve(__dirname, 'dist')
+        },
+        {
+          from: path.resolve(__dirname, 'views/index.static.html'),
+          to: path.resolve(__dirname, 'dist/index.html')
+        },
+        {
+          from: path.resolve(__dirname, 'static'),
+          to: path.resolve(__dirname, 'dist/static'),
+          ignore: ['stats.html', 'manifest.json', 'cache/']
+        }
+      ])
     ].concat(mode !== 'development'
       ? [
         new WebpackMd5Hash(),
@@ -137,31 +161,7 @@ export default function ({mode = 'development', port, nodePort} = {}) {
             // Drop console statements
             drop_console: true
           }
-        }),
-        // copy static assets to dist dir, generate static web page
-        new CopyWebpackPlugin([
-          {
-            from: path.resolve(__dirname, 'static/cache'),
-            to: path.resolve(__dirname, 'dist/cache')
-          },
-          {
-            from: path.resolve(__dirname, 'static/js/auto'),
-            to: path.resolve(__dirname, 'dist')
-          },
-          {
-            from: path.resolve(__dirname, 'static/manifest.json'),
-            to: path.resolve(__dirname, 'dist')
-          },
-          {
-            from: path.resolve(__dirname, 'views/index.static.html'),
-            to: path.resolve(__dirname, 'dist/index.html')
-          },
-          {
-            from: path.resolve(__dirname, 'static'),
-            to: path.resolve(__dirname, 'dist/static'),
-            ignore: ['stats.html', 'manifest.json', 'cache/']
-          }
-        ])
+        })
       ]
       : [
       ]
