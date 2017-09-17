@@ -61,11 +61,12 @@ export default async function () {
   }
   axios({
     method: 'post',
-    url: 'https://lavas.baidu.com/ready/statistic',
+    url: '/',
     data: {
-      id: id,
+      id,
       data: summary
     }
   })
+
   return summary
 }

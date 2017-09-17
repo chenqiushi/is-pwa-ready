@@ -10,7 +10,9 @@ import env from './env/main'
 import summary from './summary/main'
 import cache from './cache/main'
 import push from './push/main'
-import {search2obj} from 'utils'
+import {search2obj, uuid} from 'utils'
+import store from 'store'
+import axios from 'axios'
 import './main.css'
 import 'vconsole'
 import {info} from './helper'
@@ -19,8 +21,30 @@ window.addEventListener('unhandledrejection', function (event) {
   console.warn('WARNING: Unhandled promise rejection. Shame on you! Reason: ' + event.reason)
 })
 info.totalSchedule = 8
-const {step = '0'} = search2obj();
+const {step = '0', fr = ''} = search2obj();
+
 (async function main () {
+
+  let id = await store.get('uuid', 'id')
+  if (!id) {
+    await store.put('uuid', uuid(), 'id')
+  }
+
+  // 如若是manifest的测试,直接返回了
+  if (fr && fr === 'manifesticon') {
+    axios({
+      method: 'post',
+      url: '/',
+      data: {
+        id,
+        manifest: {
+          addToScreen: 1
+        }
+      }
+    })
+    return
+  }
+
   switch (step) {
     case '0':
       await init()
