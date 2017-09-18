@@ -1,6 +1,6 @@
 {
   "name": "PWA TEST",
-  "short_name": "PWA",
+  "short_name": "PWA TEST",
   "lang": "zh-CN",
   "theme_color": "#f2e8d5",
   "background_color": "#f2e8d5",
@@ -9,6 +9,6 @@
     "sizes": "200x200",
     "type": "image/png"
   }],
-  "start_url": "https://chenqiushi.github.io/auto/",
+  "start_url": "/auto/?fr=manifesticon",
   "display": "fullscreen"
 }
