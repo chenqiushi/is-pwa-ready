@@ -37,7 +37,7 @@ export default async function () {
   }
   axios({
     method: 'post',
-    url: 'http://172.18.18.32:8849/ready/statistic',
+    url: 'https://lavas.baidu.com/ready/statistic',
     data: {
       id,
       data: summary
