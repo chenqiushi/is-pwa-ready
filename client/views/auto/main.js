@@ -55,7 +55,7 @@ const {step = '0', fr = ''} = search2obj();
   }
 
   // 如果是step=1刷新，则重定向到step=0，重新走测试流程
-  if (step === '1' && localStorage.getItem('from') === 'refresh') {
+  if (step === '1' && localStorage.getItem('from') !== 'step0') {
     const search = search2obj()
     location.search = obj2search(Object.assign(search, {step: '0'}))
   }
