@@ -10,17 +10,20 @@ import env from './env/main'
 import summary from './summary/main'
 import cache from './cache/main'
 import push from './push/main'
-import {search2obj, uuid} from 'utils'
+import {search2obj, uuid, isNumeric} from 'utils'
 import store from 'store'
 import axios from 'axios'
 import './main.css'
 import 'vconsole'
-import {info} from './helper'
+import {info, infoKeys} from './helper'
 import 'views/common/raven'
 window.addEventListener('unhandledrejection', function (event) {
   console.warn('WARNING: Unhandled promise rejection. Shame on you! Reason: ' + event.reason)
 })
 info.totalSchedule = 8
+let uaInfo = {
+  info: {}
+}
 const {step = '0', fr = ''} = search2obj();
 
 (async function main () {
@@ -32,11 +35,17 @@ const {step = '0', fr = ''} = search2obj();
 
   // 如若是manifest的测试,直接返回了
   if (fr && fr === 'manifesticon') {
+    const ua = await store.get('info', 'ua')
+    if (!ua) {
+      await env()
+    }
+    await setUa('info', infoKeys)
     axios({
       method: 'post',
       url: 'http://172.18.18.32:8849/ready/statistic',
       data: {
         id,
+        info: uaInfo,
         manifest: {
           addToScreen: 1
         }
@@ -70,3 +79,19 @@ const {step = '0', fr = ''} = search2obj();
       break
   }
 })()
+
+async function setUa(kind, keys) {
+  for(let i = 0; i < keys.length; i++) {
+    const key = keys[i]
+    const score = await store.get(kind, key)
+    if(isNumeric(score)) {
+      uaInfo[kind][key] = parseFloat(score)
+    } else {
+      try {
+        uaInfo[kind][key] = JSON.parse(score)
+      } catch (error) {
+        uaInfo[kind][key] = score
+      }
+    }
+  }
+}

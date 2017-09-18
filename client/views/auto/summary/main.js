@@ -40,7 +40,8 @@ export default async function () {
     url: 'http://172.18.18.32:8849/ready/statistic',
     data: {
       id,
-      data: summary
+      info: summary.info,
+      feature: summary.feature
     }
   })
 
