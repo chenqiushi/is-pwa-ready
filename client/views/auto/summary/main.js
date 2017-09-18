@@ -1,10 +1,6 @@
-import {featureKeys, infoKeys, copyTips} from '../helper'
+import {featureKeys, infoKeys} from '../helper'
 import {isNumeric, uuid} from 'utils'
 import store from 'store'
-import Clipboard from 'clipboard'
-import sweetAlert from 'sweetalert'
-import 'sweetalert/dist/sweetalert.css'
-import Raven from 'raven'
 import axios from 'axios'
 export default async function () {
   const summary = {
@@ -30,33 +26,13 @@ export default async function () {
   await setSummary('feature', featureKeys)
   const json = JSON.stringify(summary, null, 2)
   document.querySelector('.summary code').innerHTML = json
-  const clipboard = new Clipboard(document.querySelector('.summary button'), {
-    text () {return json}
-  })
-  clipboard.on('success', evt => sweetAlert({
-    title: copyTips.success.title,
-    type: 'success',
-    showCancelButton: true,
-    confirmButtonText: copyTips.success.confirmButtonText
-  }, isConfirm => {
-    if(isConfirm) {
-      location.href = 'https://github.com/toxic-johann/is-pwa-ready/issues'
-    }
-  }))
-  clipboard.on('error', evt => sweetAlert({
-    title: copyTips.error.title,
-    text: copyTips.error.text,
-    type: 'error'
-  }))
+
   document.querySelector('.summary').classList.add('show')
-  Raven.setUserContext(summary)
-  Raven.captureMessage('test-result-' + uuid(), {
-    level: 'info'
-  })
+
   // 发送统计
   let id = await store.get('uuid', 'id')
   if (!id) {
-    id = uuid();
+    id = uuid()
     await store.put('uuid', id, 'id')
   }
   axios({

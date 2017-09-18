@@ -25,7 +25,7 @@ const {step = '0', fr = ''} = search2obj();
 
 (async function main () {
 
-  let id = await store.get('uuid', 'id')
+  const id = await store.get('uuid', 'id')
   if (!id) {
     await store.put('uuid', uuid(), 'id')
   }
