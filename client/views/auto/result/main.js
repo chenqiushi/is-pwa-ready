@@ -45,7 +45,9 @@ export default async function () {
   let schedule = await store.get('info', 'schedule')
   schedule = parseFloat(schedule || 0)
   schedule = ++schedule
-  document.querySelector('.schedule span').innerHTML = ~~(schedule / info.totalSchedule * 100) + '%'
+  let showSchedule = (schedule / info.totalSchedule * 100) % 100
+  showSchedule = schedule && !showSchedule ? 100 : showSchedule
+  document.querySelector('.schedule span').innerHTML = ~~(showSchedule) + '%'
   await store.put('info', schedule, 'schedule')
   if(schedule !== info.totalSchedule) {
     info.timeoutTimer = setTimeout(async () => {
