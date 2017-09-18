@@ -8,7 +8,7 @@ self.onmessage = async function (event) {
     console.log('event.source present')
     event.source.postMessage('Woop!')
     await store.put('feature', 1, 'sw-msg-send')
-    await store.put('feature', 'event.source', 'sw-msg-send-by')
+    // await store.put('feature', 'event.source', 'sw-msg-send-by')
     return
   }
   if (self.clients && self.clients.matchAll) {
@@ -19,18 +19,18 @@ self.onmessage = async function (event) {
       }
     })
     await store.put('feature', 0.8, 'sw-msg-send')
-    await store.put('feature', 'self.clients', 'sw-msg-send-by')
+    // await store.put('feature', 'self.clients', 'sw-msg-send-by')
     return
   }
   if (event.data.port) {
     event.data.port.postMessage('Woop!')
     await store.put('feature', 0.5, 'sw-msg-send')
-    await store.put('feature', 'event.data.port', 'sw-msg-send-by')
+    // await store.put('feature', 'event.data.port', 'sw-msg-send-by')
     return
   }
   console.log('No useful return channel')
   await store.put('feature', 0, 'sw-msg-send')
-  await store.put('feature', 'nothing', 'sw-msg-send-by')
+  // await store.put('feature', 'nothing', 'sw-msg-send-by')
   return
 }
 

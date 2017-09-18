@@ -34,7 +34,7 @@ const {step = '0', fr = ''} = search2obj();
   if (fr && fr === 'manifesticon') {
     axios({
       method: 'post',
-      url: '/',
+      url: 'http://172.18.18.32:8849/ready/statistic',
       data: {
         id,
         manifest: {

@@ -61,7 +61,7 @@ export default async function () {
   }
   axios({
     method: 'post',
-    url: '/',
+    url: 'http://172.18.18.32:8849/ready/statistic',
     data: {
       id,
       data: summary

@@ -15,7 +15,7 @@ function genWaiter () {
     messageChannel.port1.onmessage = async event => {
       console.log('Got reply from serviceWorker via channel', event.data)
       await store.put('feature', 0.8, 'main-msg-got')
-      await store.put('feature', 'messageChannel.port1', 'main-msg-got-by')
+      // await store.put('feature', 'messageChannel.port1', 'main-msg-got-by')
     }
     // messageChannel.port1.addEventListener('message', async event => {
     //   console.log('Got reply from serviceWorker via channel', event.data)
@@ -31,12 +31,12 @@ function genWaiter () {
     promisifyOneTimeEventListener(async event => {
       console.warn('Got reply from serviceWorker via window', event.data)
       await store.put('feature', 0.5, 'main-msg-got')
-      await store.put('feature', 'window', 'main-msg-got-by')
+      // await store.put('feature', 'window', 'main-msg-got-by')
     }, window, 'message'),
     promisifyOneTimeEventListener(async event => {
       console.log('Got reply from serviceWorker via navigator.serviceWorker', event.data)
       await store.put('feature', 1, 'main-msg-got')
-      await store.put('feature', 'navigator.serviceWorker', 'main-msg-got-by')
+      // await store.put('feature', 'navigator.serviceWorker', 'main-msg-got-by')
     }, navigator.serviceWorker, 'message')
   ]))
 }
