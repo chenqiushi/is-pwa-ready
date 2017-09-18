@@ -36,6 +36,7 @@ function genWaiter (fn) {
 }
 
 export default async function () {
+  localStorage.setItem('from', 'refresh')
   require('whatwg-fetch')
   // init all the feature as zero
   for(let i = list.length - 1; i > -1; i--) {

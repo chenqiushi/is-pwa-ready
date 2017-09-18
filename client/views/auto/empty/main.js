@@ -6,5 +6,6 @@ export default async function () {
   step++
   const hasSW = !!navigator.serviceWorker
   if(hasSW) await navigator.serviceWorker.register('/auto/empty-sw.js', {scope: '/auto/'})
+  localStorage.setItem('from', 'step0')
   location.search = obj2search(Object.assign(search, {step}))
 }

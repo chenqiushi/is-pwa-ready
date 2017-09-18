@@ -10,7 +10,7 @@ import env from './env/main'
 import summary from './summary/main'
 import cache from './cache/main'
 import push from './push/main'
-import {search2obj, uuid, isNumeric} from 'utils'
+import {search2obj, obj2search, uuid, isNumeric} from 'utils'
 import store from 'store'
 import axios from 'axios'
 import './main.css'
@@ -52,6 +52,12 @@ const {step = '0', fr = ''} = search2obj();
       }
     })
     return
+  }
+
+  // 如果是step=1刷新，则重定向到step=0，重新走测试流程
+  if (step === '1' && localStorage.getItem('from') === 'refresh') {
+    const search = search2obj()
+    location.search = obj2search(Object.assign(search, {step: '0'}))
   }
 
   switch (step) {
