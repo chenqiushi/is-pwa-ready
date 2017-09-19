@@ -40,7 +40,8 @@ export default async function () {
     url: 'https://lavas.baidu.com/ready/statistic',
     data: {
       id,
-      data: summary
+      info: summary.info,
+      feature: summary.feature
     }
   })
 
