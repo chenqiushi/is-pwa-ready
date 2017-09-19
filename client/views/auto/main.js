@@ -45,7 +45,7 @@ const {step = '0', fr = ''} = search2obj();
       url: 'http://172.18.18.32:8849/ready/statistic',
       data: {
         id,
-        info: uaInfo,
+        info: uaInfo.info,
         manifest: {
           addToScreen: 1
         }
