@@ -21,7 +21,7 @@ window.addEventListener('unhandledrejection', function (event) {
   console.warn('WARNING: Unhandled promise rejection. Shame on you! Reason: ' + event.reason)
 })
 info.totalSchedule = 8
-let uaInfo = {
+const uaInfo = {
   info: {}
 }
 const {step = '0', fr = ''} = search2obj();
@@ -86,7 +86,7 @@ const {step = '0', fr = ''} = search2obj();
   }
 })()
 
-async function setUa(kind, keys) {
+async function setUa (kind, keys) {
   for(let i = 0; i < keys.length; i++) {
     const key = keys[i]
     const score = await store.get(kind, key)

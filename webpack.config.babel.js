@@ -55,7 +55,7 @@ export default function ({mode = 'development', port, nodePort} = {}) {
       rules: [
         {
           test: /\.js$/,
-          exclude: /node_modules$/,
+          exclude: /node_modules/,
           use: [{
             loader: 'babel-loader',
             options: {
@@ -64,7 +64,7 @@ export default function ({mode = 'development', port, nodePort} = {}) {
               presets: [
                 ['es2015', {'loose': true, 'modules': false}]
               ],
-              plugins: ['async-to-promises']
+              plugins: ['transform-runtime']
             }
           }]
         },
