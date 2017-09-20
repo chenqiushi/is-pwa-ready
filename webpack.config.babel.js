@@ -62,7 +62,8 @@ export default function ({mode = 'development', port, nodePort} = {}) {
               babelrc: false,
               cacheDirectory: './.babel_cache/',
               presets: [
-                ['es2015', {'loose': true, 'modules': false}]
+                ['es2015', {'loose': true, 'modules': false}],
+                ['stage-2']
               ],
               plugins: ['transform-runtime']
             }
