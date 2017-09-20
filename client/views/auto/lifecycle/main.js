@@ -46,7 +46,9 @@ export default async function () {
   const hasSW = !!navigator.serviceWorker
   if(!hasSW) return
   await store.put('feature', 1, 'navigator.serviceWorker')
-  navigator.serviceWorker.ready.then(() => store.put('feature', 1, 'navigator.serviceWorker.ready'))
+  if (navigator.serviceWorker.ready.then) {
+    store.put('feature', 1, 'navigator.serviceWorker.ready')
+  }
   const waiter = genWaiter(controllerchangeCauseByNormalInstall)
   // register test, including install event, controllerchange, activate event
   const reg = await navigator.serviceWorker.register('/auto/lifecycle-sw.js', {scope: '/auto/'})
