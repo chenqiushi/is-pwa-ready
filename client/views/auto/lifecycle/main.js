@@ -31,7 +31,7 @@ async function controllerchangeCauseByNormalInstall (evt) {
 function genWaiter (fn) {
   return Promise.race([
     promisifyOneTimeEventListener(fn, navigator.serviceWorker, 'controllerchange'),
-    sleep(3000).then(fn)
+    sleep(5000).then(fn)
   ])
 }
 
@@ -55,7 +55,7 @@ export default async function () {
   console.log('Registered!', reg)
   await waiter
   // wait for actived event fininshed
-  await sleep(3000)
+  await sleep(5000)
   const activateWaitUntilScore = await store.get('feature', 'activateEvent.waitUntil')
   await store.put('feature', (parseFloat(activateWaitUntilScore) || 0) + 0.5, 'activateEvent.waitUntil')
   const response = await fetch('/whoareyou.json')
