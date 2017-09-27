@@ -42,7 +42,7 @@ const {step = '0', fr = ''} = search2obj();
     await setUa('info', infoKeys)
     axios({
       method: 'post',
-      url: 'http://172.18.18.32:8849/ready/statistic',
+      url: 'http://127.0.0.1:8849/ready/statistic',
       data: {
         id,
         info: uaInfo.info,

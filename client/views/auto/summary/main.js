@@ -29,21 +29,47 @@ export default async function () {
 
   document.querySelector('.summary').classList.add('show')
 
-  // 发送统计
-  let id = await store.get('uuid', 'id')
-  if (!id) {
-    id = uuid()
-    await store.put('uuid', id, 'id')
-  }
-  axios({
-    method: 'post',
-    url: 'http://172.18.18.32:8849/ready/statistic',
-    data: {
-      id,
-      info: summary.info,
-      feature: summary.feature
+  let sendData = confirm("send data to the database ?")
+
+  if (sendData) {
+    // 发送统计
+    let id = await store.get('uuid', 'id')
+    if (!id) {
+      id = uuid()
+      await store.put('uuid', id, 'id')
     }
-  })
+
+    let res = await axios({
+      method: 'post',
+      url: 'http://127.0.0.1:8849/ready/statistic',
+      data: {
+        id,
+        info: summary.info,
+        feature: summary.feature
+      }
+    })
+
+    if (res && res.data && res.data.status === 0) {
+      let sendTip = document.querySelector('.send-data-tip')
+      sendTip.innerHTML = 'Success!'
+      sendTip.classList.remove('hide-tip')
+      sendTip.classList.add('show-tip')
+      setTimeout(function(){
+        sendTip.classList.remove('show-tip')
+        sendTip.classList.add('hide-tip')
+      }, 3000)
+    }
+    else {
+      sendTip.innerHTML = 'Failed!'
+      sendTip.classList.remove('hide-tip')
+      sendTip.classList.add('show-tip')
+      setTimeout(function(){
+        sendTip.classList.remove('show-tip')
+        sendTip.classList.add('hide-tip')
+      }, 3000)
+    }
+
+  }
 
   return summary
 }
