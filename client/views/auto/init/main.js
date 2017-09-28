@@ -1,14 +1,20 @@
 import store from 'store';
 export default async function () {
-    await store.clear('feature');
-    await store.clear('info');
+    await Promise.all([
+        store.clear('feature'),
+        store.clear('info')
+    ]);
+    // await store.clear('feature');
+    // await store.clear('info');
     await store.put('info', 0, 'schedule');
-    const hasSW = !!navigator.serviceWorker;
-    if (!hasSW) {
-        return;
+
+    if (!navigator.serviceWorker) {
+        throw new Error('no_service_worker');
     }
+
     const reg = await navigator.serviceWorker.getRegistration();
-    if (reg) {
-        await reg.unregitster && reg.unregitster();
+
+    if (reg && reg.unregitster) {
+        await reg.unregitster();
     }
 }

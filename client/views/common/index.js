@@ -82,11 +82,12 @@ if (!Array.from) {
         };
     }());
 }
-document.querySelector('.lang-switch').addEventListener('click', function (evt) {
-    evt.preventDefault();
-    const lang = Array.from(evt.target.classList).indexOf('zh') > -1 ? 'zh' : 'en';
-    const date = new Date();
-    date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
-    document.cookie = 'lang=' + lang + '; expires=' + date.toUTCString + '; path=/';
-    location.search = '';
-});
+
+// document.querySelector('.lang-switch').addEventListener('click', function (evt) {
+//     evt.preventDefault();
+//     const lang = Array.from(evt.target.classList).indexOf('zh') > -1 ? 'zh' : 'en';
+//     const date = new Date();
+//     date.setTime(date.getTime() + (365 * 24 * 60 * 60 * 1000));
+//     document.cookie = 'lang=' + lang + '; expires=' + date.toUTCString + '; path=/';
+//     location.search = '';
+// });

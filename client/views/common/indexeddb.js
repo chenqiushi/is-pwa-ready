@@ -31,16 +31,21 @@ const behaviors = ['add', 'put', 'get', 'getAll', 'getAllKeys', 'clear'].reduce(
     };
     return behaviors;
 }, {});
-Object.assign(behaviors, ['add', 'put'].forEach(([key, fn]) => {
+
+['add', 'put'].forEach(([key, fn]) => {
     behaviors[key + 'all'] = behaveAll(fn);
-}));
+});
+
+// Object.assign(behaviors, ['add', 'put'].forEach(([key, fn]) => {
+//     behaviors[key + 'all'] = behaveAll(fn);
+// }));
 
 class Store {
     constructor({
-    name = 'test',
-    objectStores = [],
-    version = 1
-  } = {}) {
+        name = 'test',
+        objectStores = [],
+        version = 1
+    } = {}) {
         assert(isString(name), 'name must to be String');
         assert(Array.isArray(objectStores), 'objectStores must to be Array');
         this.isReady = false;

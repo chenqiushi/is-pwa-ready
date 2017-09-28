@@ -24,8 +24,8 @@ export default async function () {
         const isNote = scoreStr && !isNumeric(scoreStr);
         const score = isNote ? scoreStr : parseFloat(scoreStr || 0);
         const rgb = isNote
-      ? [0, 0, 0]
-      : genRGB(score);
+            ? [0, 0, 0]
+            : genRGB(score);
         fullScore = isNote ? fullScore : fullScore + 1;
         totalScore = isNote ? totalScore : totalScore + score;
         const li = `
