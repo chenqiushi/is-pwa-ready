@@ -44,3 +44,9 @@ qiniu.js
 
 # static site dir
 dist
+
+static/css
+static/font
+static/img
+static/js
+static/stats.html
