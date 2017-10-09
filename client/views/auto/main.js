@@ -28,45 +28,16 @@ window.addEventListener('unhandledrejection', function (event) {
     console.warn('WARNING: Unhandled promise rejection. Shame on you! Reason: ' + event.reason);
 });
 
+document.querySelector('.test-again').addEventListener('click', function (e) {
+  main();
+});
+
 info.totalSchedule = 8;
-// const uaInfo = {
-//     info: {}
-// };
-const {step = '0', fr = ''} = search2obj();
+const {step = '0'} = search2obj();
 
-(async function main() {
-    // 生成 uuid
-    let id = await store.get('uuid', 'id');
+main();
 
-    if (!id) {
-        id = uuid();
-        store.put('uuid', id, 'id');
-    }
-
-    // 如若是manifest的测试,直接返回了
-    if (fr === 'manifesticon') {
-        const ua = await store.get('info', 'ua');
-
-        if (!ua) {
-            await env();
-        }
-
-        let uaInfo = await setUa('info', infoKeys);
-
-        axios({
-            method: 'post',
-            url: 'https://lavas.baidu.com/api/ready/statistic',
-            data: {
-                id,
-                info: uaInfo.info,
-                manifest: {
-                    addToScreen: 1
-                }
-            }
-        });
-
-        return;
-    }
+async function main() {
 
     // 如果是step=1刷新，则重定向到step=0，重新走测试流程
     if (step === '1' && localStorage.getItem('from') !== 'step0') {
@@ -99,28 +70,7 @@ const {step = '0', fr = ''} = search2obj();
             await summary();
             break;
     }
-})();
-
-async function setUa(kind, keys) {
-    let uaInfo = {
-        [kind]: undefined
-    };
-
-    for (let i = 0; i < keys.length; i++) {
-        const key = keys[i];
-        const score = await store.get(kind, key);
-        if (isNumeric(score)) {
-            uaInfo[kind][key] = parseFloat(score);
-        }
-        else {
-            try {
-                uaInfo[kind][key] = JSON.parse(score);
-            }
-            catch (error) {
-                uaInfo[kind][key] = score;
-            }
-        }
-    }
-
-    return uaInfo;
 }
+
+
+
