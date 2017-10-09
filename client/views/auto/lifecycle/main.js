@@ -39,13 +39,13 @@ function genWaiter(fn) {
 }
 
 export default async function () {
-    localStorage.setItem('from', 'refresh');
+    // localStorage.setItem('from', 'refresh');
     require('whatwg-fetch');
-  // init all the feature as zero
+    // init all the feature as zero
     for (let i = list.length - 1; i > -1; i--) {
         await store.put('feature', 0, list[i]);
     }
-  // generate waiter for controller change
+    // generate waiter for controller change
     const hasSW = !!navigator.serviceWorker;
     if (!hasSW) {
         return;
@@ -55,11 +55,11 @@ export default async function () {
         store.put('feature', 1, 'navigator.serviceWorker.ready');
     }
     const waiter = genWaiter(controllerchangeCauseByNormalInstall);
-  // register test, including install event, controllerchange, activate event
+    // register test, including install event, controllerchange, activate event
     const reg = await navigator.serviceWorker.register('/auto/lifecycle-sw.js', {scope: '/auto/'});
     console.log('Registered!', reg);
     await waiter;
-  // wait for actived event fininshed
+    // wait for actived event fininshed
     await sleep(5000);
     const activateWaitUntilScore = await store.get('feature', 'activateEvent.waitUntil');
     await store.put('feature', (parseFloat(activateWaitUntilScore) || 0) + 0.5, 'activateEvent.waitUntil');
@@ -72,7 +72,7 @@ export default async function () {
             await store.put('feature', (parseFloat(clientsclaimScore) || 0) + 0.5, 'clients.claim');
         }
     }
-  // unregister test
+    // unregister test
     await reg.unregister();
     console.log('Unregistered');
     let sum = 0;

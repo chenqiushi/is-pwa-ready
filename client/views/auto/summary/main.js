@@ -35,7 +35,6 @@ export default async function () {
     sendDataBtn.classList.remove('hide');
 
     sendDataBtn.addEventListener('click', async function (e) {
-        debugger
         let sendData = confirm('send data to the database ?');
 
         if (sendData) {
@@ -80,6 +79,3 @@ export default async function () {
 
     return summary;
 }
-
-
-

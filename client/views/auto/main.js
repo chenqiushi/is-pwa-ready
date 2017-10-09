@@ -11,13 +11,14 @@ import env from './env/main';
 import summary from './summary/main';
 import cache from './cache/main';
 import push from './push/main';
-import {search2obj, obj2search, uuid, isNumeric} from 'utils';
-import store from 'store';
-import axios from 'axios';
+import {sleep} from 'utils';
+// import {search2obj, obj2search, uuid, isNumeric} from 'utils';
+// import store from 'store';
+// import axios from 'axios';
 import './main.css';
 // import 'vconsole';
-import {info, infoKeys} from './helper';
-import 'views/common/raven';
+// import {info, infoKeys} from './helper';
+// import 'views/common/raven';
 
 window.addEventListener('unhandledrejection', function (event) {
     let str = JSON.stringify(event);
@@ -29,48 +30,65 @@ window.addEventListener('unhandledrejection', function (event) {
 });
 
 document.querySelector('.test-again').addEventListener('click', function (e) {
-  main();
+    main();
 });
 
-info.totalSchedule = 8;
-const {step = '0'} = search2obj();
+// info.totalSchedule = 8;
+// const {step = '0'} = search2obj();
 
 main();
 
 async function main() {
+    await init();
+    await env();
+    await result();
+    await globalTest();
+    await result();
+    await empty();
+    await result();
+    await sleep(2000);
+
+    await lifecycleTest();
+    await result();
+    await postmessageTest();
+    await result();
+    await syncTest();
+    await result();
+    await cache();
+    await result();
+    await push();
+    await result();
+    await summary();
 
     // 如果是step=1刷新，则重定向到step=0，重新走测试流程
-    if (step === '1' && localStorage.getItem('from') !== 'step0') {
-        const search = search2obj();
-        location.search = obj2search(Object.assign(search, {step: '0'}));
-    }
+    // if (step === '1' && localStorage.getItem('from') !== 'step0') {
+    //     const search = search2obj();
+    //     location.search = obj2search(Object.assign(search, {step: '0'}));
+    // }
 
-    switch (step) {
-        case '0':
-            localStorage.setItem('from', 'step0');
-            await init();
-            await env();
-            await result();
-            await globalTest();
-            await result();
-            await empty();
-            return;
-        case '1':
-            await result();
-            await lifecycleTest();
-            await result();
-            await postmessageTest();
-            await result();
-            await syncTest();
-            await result();
-            await cache();
-            await result();
-            await push();
-            await result();
-            await summary();
-            break;
-    }
+    // switch (step) {
+    //     case '0':
+    //         localStorage.setItem('from', 'step0');
+    //         await init();
+    //         await env();
+    //         await result();
+    //         await globalTest();
+    //         await result();
+    //         await empty();
+    //         return;
+    //     case '1':
+    //         await result();
+    //         await lifecycleTest();
+    //         await result();
+    //         await postmessageTest();
+    //         await result();
+    //         await syncTest();
+    //         await result();
+    //         await cache();
+    //         await result();
+    //         await push();
+    //         await result();
+    //         await summary();
+    //         break;
+    // }
 }
-
-
-

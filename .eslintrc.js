@@ -336,7 +336,7 @@ module.exports = {
         // 不禁止定义前使用
         'no-use-before-define': [2, 'nofunc'],
         'no-useless-constructor': 1,
-        // 要求使用 let 或 const 而不是 var
+        // 不要求使用 let 或 const 而不是 var
         'no-var': 1,
         // 不禁用 void 操作符
         'no-void': 0,
