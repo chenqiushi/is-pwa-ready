@@ -6,47 +6,49 @@
 import glob from 'glob';
 import path from 'path';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import Visualizer from 'webpack-visualizer-plugin';
+// import Visualizer from 'webpack-visualizer-plugin';
 import webpack from 'webpack';
 import WebpackMd5Hash from 'webpack-md5-hash';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+// import HtmlWebpackPlugin from 'html-webpack-plugin';
 import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 export default function ({mode = 'development', port, nodePort} = {}) {
-    const viewRoot = './client/views/';
-    const staticRoot = './static';
-    const jsFiles = glob.sync(viewRoot + '*/main.js');
+    const viewRoot = './client/views/auto/';
+    const staticRoot = './dist';
+    const jsFiles = glob.sync(viewRoot + 'main.js');
 
     const entry = jsFiles.reduce((entry, filename) => {
-        const name = path.posix.relative(viewRoot, filename).replace(/\/main\.js/, '');
+        let name = path.posix.relative(viewRoot, filename).replace(/(^|\/)main\.js/, '');
+        name = name || 'index';
         entry[name] = filename;
         return entry;
     }, {});
 
-    const autoSWFiles = glob.sync(viewRoot + '*/*/sw.js');
+    const autoSWFiles = glob.sync(viewRoot + '*/sw.js');
     autoSWFiles.map(filename => {
         const name = path.posix.relative(viewRoot, filename).replace(/\/sw\.js/, '-sw');
         entry[name] = filename;
     });
 
-    const htmlFiles = glob.sync(viewRoot + '*/main.html');
-    const htmlWebpackPlugins = htmlFiles.map(template => {
-        const match = template.match(/\.\/client\/views\/([^\/]+)\/main\.html/);
-        const path = match[1];
-        const options = {
-            inject: false,
-            chunks: [path],
-            filename: '../views/' + path + '.html',
-            template
-        };
-        if (mode !== 'development') {
-            options.minify = {
-                removeComments: true,
-                collapseWhitespace: true
-            };
-        }
-        return new HtmlWebpackPlugin(options);
-    });
+    // const htmlFiles = glob.sync(viewRoot + '*/main.html');
+    // const htmlWebpackPlugins = htmlFiles.map(template => {
+    //     const match = template.match(/\.\/client\/views\/([^\/]+)\/main\.html/);
+    //     const path = match[1];
+    //     const options = {
+    //         inject: false,
+    //         chunks: [path],
+    //         filename: path + '.html',
+    //         // filename: '../views/' + path + '.html',
+    //         template
+    //     };
+    //     if (mode !== 'development') {
+    //         options.minify = {
+    //             removeComments: true,
+    //             collapseWhitespace: true
+    //         };
+    //     }
+    //     return new HtmlWebpackPlugin(options);
+    // });
 
     /* eslint-disable no-console */
     console.log(entry);
@@ -60,10 +62,12 @@ export default function ({mode = 'development', port, nodePort} = {}) {
     return {
         entry,
         output: {
-            filename: mode === 'development' ? 'js/[name].js' : 'js/[name]-[chunkhash].js',
+            filename: '[name].js',
+            // filename: mode === 'development' ? 'js/[name].js' : 'js/[name]-[chunkhash].js',
             // chunkFilename: mode === 'development' ? 'js/[name].js' : 'js/[name]-[chunkhash].js',
             path: path.resolve(staticRoot),
-            publicPath: mode === 'development' ? '/static/' : 'https://resource.toxicjohann.com/ispwaready/'
+            publicPath: '/dist/'
+            // publicPath: mode === 'development' ? '/dist/' : 'https://resource.toxicjohann.com/ispwaready/'
         },
         module: {
             rules: [
@@ -119,7 +123,7 @@ export default function ({mode = 'development', port, nodePort} = {}) {
             new webpack.LoaderOptionsPlugin({
                 options: {
                     output: {
-                        publicPath: '/static/'
+                        publicPath: '/dist/'
                     },
                     postcss: [
                         require('postcss-import')({
@@ -141,33 +145,35 @@ export default function ({mode = 'development', port, nodePort} = {}) {
                 }
             }),
             new ExtractTextPlugin({
-                filename: mode === 'development' ? 'css/[name].css' : 'css/[name]-[contenthash].css'
+                filename: 'css/[name].css'
+                // filename: mode === 'development' ? 'css/[name].css' : 'css/[name]-[contenthash].css'
             }),
-            ...htmlWebpackPlugins,
-            new Visualizer(),
+            // ...htmlWebpackPlugins,
+            // new Visualizer(),
             // copy static assets to dist dir, generate static web page
             new CopyWebpackPlugin([
                 {
                     from: path.resolve(__dirname, 'static/cache'),
                     to: path.resolve(__dirname, 'dist/cache')
                 },
-                {
-                    from: path.resolve(__dirname, 'static/js/auto'),
-                    to: path.resolve(__dirname, 'dist')
-                },
+                // {
+                //     from: path.resolve(__dirname, 'static/js/auto'),
+                //     to: path.resolve(__dirname, 'dist')
+                // },
                 {
                     from: path.resolve(__dirname, 'static/manifest.json'),
                     to: path.resolve(__dirname, 'dist')
                 },
                 {
-                    from: path.resolve(__dirname, 'views/index.static.html'),
+                    from: path.resolve(__dirname, 'static/index.html'),
                     to: path.resolve(__dirname, 'dist/index.html')
-                },
-                {
-                    from: path.resolve(__dirname, 'static'),
-                    to: path.resolve(__dirname, 'dist/static'),
-                    ignore: ['stats.html', 'manifest.json', 'cache/']
                 }
+                // ,
+                // {
+                //     from: path.resolve(__dirname, 'static'),
+                //     to: path.resolve(__dirname, 'dist/static'),
+                //     ignore: ['stats.html', 'manifest.json', 'cache/']
+                // }
             ])
         ]
         .concat(

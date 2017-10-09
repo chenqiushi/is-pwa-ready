@@ -1,3 +1,4 @@
+// import './main.css';
 import '../common/index';
 import globalTest from './global/main';
 import empty from './empty/main';
@@ -14,7 +15,7 @@ import {search2obj, obj2search, uuid, isNumeric} from 'utils';
 import store from 'store';
 import axios from 'axios';
 import './main.css';
-import 'vconsole';
+// import 'vconsole';
 import {info, infoKeys} from './helper';
 import 'views/common/raven';
 

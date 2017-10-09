@@ -6,8 +6,8 @@
   "scripts": {
     "start": "webpack -w & nodemon --watch server --watch views -e js,html,json",
     "node-debug": "webpack -w & nodemon --debug --watch server --watch views -e js,html,json",
-    "build": "rm -f ./static/css/*-*.css && rm -f ./static/js/*-*.js && rm -f ./static/js/auto/*-*-*.js && rm -rf dist && webpack --env.mode='production'",
-    "generate": "rm -f ./static/css/*-*.css && rm -f ./static/js/*-*.js && rm -f ./static/js/auto/*-*-*.js && rm -rf dist && webpack",
+    "build": "rm -rf dist && webpack --env.mode='production'",
+    "generate": "rm -rf dist && webpack",
     "lint": "eslint ./client/ ./server/",
     "test": "webpack && node jsonlint.js",
     "precommit": "npm run lint && node jsonlint.js",
