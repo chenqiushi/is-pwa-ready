@@ -31,46 +31,55 @@ export default async function () {
 
     document.querySelector('.summary').classList.add('show');
 
-    let sendData = confirm('send data to the database ?');
+    let sendDataBtn = document.querySelector('.send-data');
+    sendDataBtn.classList.remove('hide');
 
-    if (sendData) {
-    // 发送统计
-        let id = await store.get('uuid', 'id');
-        if (!id) {
-            id = uuid();
-            await store.put('uuid', id, 'id');
-        }
+    sendDataBtn.addEventListener('click', async function (e) {
+        debugger
+        let sendData = confirm('send data to the database ?');
 
-        let res = await axios({
-            method: 'post',
-            url: 'https://lavas.baidu.com/api/ready/statistic',
-            data: {
-                id,
-                info: summary.info,
-                feature: summary.feature
+        if (sendData) {
+            // 发送统计
+            let id = await store.get('uuid', 'id');
+            if (!id) {
+                id = uuid();
+                await store.put('uuid', id, 'id');
             }
-        });
 
-        let sendTip = document.querySelector('.send-data-tip');
-        if (res && res.data && res.data.status === 0) {
-            sendTip.innerHTML = 'Success!';
-            sendTip.classList.remove('hide-tip');
-            sendTip.classList.add('show-tip');
-            setTimeout(function () {
-                sendTip.classList.remove('show-tip');
-                sendTip.classList.add('hide-tip');
-            }, 3000);
+            let res = await axios({
+                method: 'post',
+                url: 'https://lavas.baidu.com/api/ready/statistic',
+                data: {
+                    id,
+                    info: summary.info,
+                    feature: summary.feature
+                }
+            });
+
+            let sendTip = document.querySelector('.send-data-tip');
+            if (res && res.data && res.data.status === 0) {
+                sendTip.innerHTML = 'Success!';
+                sendTip.classList.remove('hide-tip');
+                sendTip.classList.add('show-tip');
+                setTimeout(function () {
+                    sendTip.classList.remove('show-tip');
+                    sendTip.classList.add('hide-tip');
+                }, 3000);
+            }
+            else {
+                sendTip.innerHTML = 'Failed!';
+                sendTip.classList.remove('hide-tip');
+                sendTip.classList.add('show-tip');
+                setTimeout(function () {
+                    sendTip.classList.remove('show-tip');
+                    sendTip.classList.add('hide-tip');
+                }, 3000);
+            }
         }
-        else {
-            sendTip.innerHTML = 'Failed!';
-            sendTip.classList.remove('hide-tip');
-            sendTip.classList.add('show-tip');
-            setTimeout(function () {
-                sendTip.classList.remove('show-tip');
-                sendTip.classList.add('hide-tip');
-            }, 3000);
-        }
-    }
+    });
 
     return summary;
 }
+
+
+

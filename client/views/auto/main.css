@@ -94,6 +94,25 @@ table {
   opacity: 0;
 }
 
+.send-data, .test-again {
+  display: inline-block;
+  height: 36px;
+  line-height: 36px;
+  background: rgb(0, 150, 24);
+  color: #fff;
+  font-size: 15px;
+  padding: 0 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  cursor: pointer;
+
+}
+
+.hide {
+  display: none;
+}
+
 .trans-fadeout {
    -webkit-transition: all 0.5s linear;
    -moz-transition: all 0.5s linear;
