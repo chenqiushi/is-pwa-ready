@@ -17,7 +17,7 @@ import {sleep} from 'utils';
 // import axios from 'axios';
 import './main.css';
 // import 'vconsole';
-// import {info, infoKeys} from './helper';
+import {info} from './helper';
 // import 'views/common/raven';
 
 window.addEventListener('unhandledrejection', function (event) {
@@ -33,7 +33,7 @@ document.querySelector('.test-again').addEventListener('click', function (e) {
     main();
 });
 
-// info.totalSchedule = 8;
+info.totalSchedule = 8;
 // const {step = '0'} = search2obj();
 
 main();

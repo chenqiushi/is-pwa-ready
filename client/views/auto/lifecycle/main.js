@@ -1,5 +1,7 @@
 import store from 'store';
 import {sleep, promisifyOneTimeEventListener} from 'utils';
+import 'whatwg-fetch';
+
 const list = [
     'activateEvent',
     'activateEvent.waitUntil',
@@ -11,6 +13,7 @@ const list = [
     'oncontrollerchange',
     'self.skipWaiting'
 ];
+
 async function controllerchangeCauseByNormalInstall(evt) {
     console.log('serviceWorker now has a new activated one');
     console.log('this event will trigger after installEvent.waitUntil and before activateEvent.waitUntil');
@@ -40,7 +43,7 @@ function genWaiter(fn) {
 
 export default async function () {
     // localStorage.setItem('from', 'refresh');
-    require('whatwg-fetch');
+    // require('whatwg-fetch');
     // init all the feature as zero
     for (let i = list.length - 1; i > -1; i--) {
         await store.put('feature', 0, list[i]);
