@@ -3,7 +3,10 @@ import {sleep} from 'utils';
 
 let installWaitUntilFlag = false;
 let skipWaitingFlag = false;
-self.oninstall = function (event) {
+
+self.addEventListener('install', function (event) {
+
+// self.oninstall = function (event) {
     store.put('feature', 1, 'installEvent');
     console.log('Install event', event);
     console.log('.replace', event.replace);
@@ -12,18 +15,19 @@ self.oninstall = function (event) {
     if (event.waitUntil) {
         console.log('Testing waitUntil:');
         event.waitUntil((async function (resolve) {
-            await sleep(1000);
+            await sleep(500);
             console.log('This should appear before activate');
             installWaitUntilFlag = true;
         })());
     }
     skipWaitingFlag = true;
-  // omit waiting period so that we can activate
-  // skipWaiting will kick out the current activateone so that we can activate this sw
+    // omit waiting period so that we can activate
+    // skipWaiting will kick out the current activateone so that we can activate this sw
     self.skipWaiting();
-};
+});
 
-self.onactivate = function (event) {
+self.addEventListener('activate', function (event) {
+// self.onactivate = function (event) {
     console.log('Activate event', event);
     console.log('.waitUntil', event.waitUntil);
     store.put('feature', 1, 'activateEvent');
@@ -35,14 +39,14 @@ self.onactivate = function (event) {
         await sleep(1000);
         console.log('This should appear before total controll');
         await store.put('feature', 0.5, 'activateEvent.waitUntil');
-    // clients.claim can let out page can actually controll the page
-    // without this our page will be controller until total reload
+        // clients.claim can let out page can actually controll the page
+        // without this our page will be controller until total reload
         if (self.clients.claim) {
             await store.put('feature', 0.5, 'clients.claim');
-      // self.clients.claim()
+            // self.clients.claim()
         }
     })());
-};
+});
 
 // use fetch event to test is it realy to be control
 self.onfetch = function (event) {

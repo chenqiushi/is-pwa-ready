@@ -2,6 +2,7 @@ import test from './test';
 import store from 'store';
 import {sleep} from 'utils';
 export default async function () {
+    console.log('global test');
     await test(window, 0);
     const hasSW = !!navigator.serviceWorker;
     // test if we suggest navigator.serviceWorker

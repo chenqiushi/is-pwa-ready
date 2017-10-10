@@ -169,6 +169,7 @@ export function promisifyOneTimeEventListener(fn, target, event) {
             })
             .catch(reject);
         }
+        console.log('-- addEventListener --');
         target.addEventListener(event, handler);
     });
 }
