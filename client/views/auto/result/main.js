@@ -58,12 +58,12 @@ export default async function (noAdd) {
         // console.log(schedule)
         // console.log(info.totalSchedule)
         // console.log('-----------')
-        // info.timeoutTimer = setTimeout(async () => {
-        //     Raven.setUserContext({result});
-        //     Raven.captureMessage('test-failed-' + uuid(), {
-        //         level: 'warning'
-        //     });
-        //     document.querySelector('.schedule').innerHTML = testTips.fail;
-        // }, 15000);
+        info.timeoutTimer = setTimeout(async () => {
+            Raven.setUserContext({result});
+            Raven.captureMessage('test-failed-' + uuid(), {
+                level: 'warning'
+            });
+            document.querySelector('.schedule').innerHTML = testTips.fail;
+        }, 15000);
     }
 }

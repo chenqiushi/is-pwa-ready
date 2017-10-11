@@ -1,5 +1,5 @@
 import store from 'store';
-import {sleep, promisifyOneTimeEventListener, reload} from 'utils';
+import {sleep, promisifyOneTimeEventListener} from 'utils';
 import 'whatwg-fetch';
 
 const list = [

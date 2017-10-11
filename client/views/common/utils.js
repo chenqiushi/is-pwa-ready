@@ -191,7 +191,7 @@ export async function reload(stepName) {
     }
     else {
         localStorage.setItem('step', stepName);
-        await sleep(3000);
+        // await sleep(3000);
         window.location.reload();
         return await sleep(5000);
     }
@@ -202,63 +202,63 @@ export function S4() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
 }
 
-export function waitUntilSWActivated(scope) {
-    return new Promise((resolve, reject) => {
-        let fn = () => {
-            return setTimeout(async () => {
-                let sw = await navigator.serviceWorker.getRegistration(scope);
-                if (sw && sw.active && sw.active.state === 'actived') {
-                    resolve();
-                }
-                else {
-                    return fn();
-                }
-            }, 200);
-        };
+// export function waitUntilSWActivated(scope) {
+//     return new Promise((resolve, reject) => {
+//         let fn = () => {
+//             return setTimeout(async () => {
+//                 let sw = await navigator.serviceWorker.getRegistration(scope);
+//                 if (sw && sw.active && sw.active.state === 'actived') {
+//                     resolve();
+//                 }
+//                 else {
+//                     return fn();
+//                 }
+//             }, 200);
+//         };
 
-        fn();
-    });
-}
+//         fn();
+//     });
+// }
 
-export function registerConsole() {
-    self.console.log = function (msg) {
-        if (typeof msg !== 'string') {
-            msg = JSON.stringify(msg);
-        }
+// export function registerConsole() {
+//     self.console.log = function (msg) {
+//         if (typeof msg !== 'string') {
+//             msg = JSON.stringify(msg);
+//         }
 
-        store.get('log', 'stack')
-        .then(data => {
-            if (data) {
-                data = JSON.parse(data);
-                data.push(msg);
-            }
-            else {
-                data = [msg];
-            }
+//         store.get('log', 'stack')
+//         .then(data => {
+//             if (data) {
+//                 data = JSON.parse(data);
+//                 data.push(msg);
+//             }
+//             else {
+//                 data = [msg];
+//             }
 
-            data = JSON.stringify(data);
-            store.put('log', data, 'stack');
-        });
-    };
+//             data = JSON.stringify(data);
+//             store.put('log', data, 'stack');
+//         });
+//     };
 
-    self.console.error = function (msg) {
-        if (typeof msg !== 'string') {
-            msg = JSON.stringify(msg);
-        }
+//     self.console.error = function (msg) {
+//         if (typeof msg !== 'string') {
+//             msg = JSON.stringify(msg);
+//         }
 
-        store.get('log', 'stack')
-        .then(data => {
-            if (data) {
-                data = JSON.parse(data);
-                data.push(msg);
-            }
-            else {
-                data = [msg];
-            }
+//         store.get('log', 'stack')
+//         .then(data => {
+//             if (data) {
+//                 data = JSON.parse(data);
+//                 data.push(msg);
+//             }
+//             else {
+//                 data = [msg];
+//             }
 
-            data = JSON.stringify(data);
+//             data = JSON.stringify(data);
 
-            store.put('log', data, 'stack');
-        });
-    };
-}
+//             store.put('log', data, 'stack');
+//         });
+//     };
+// }

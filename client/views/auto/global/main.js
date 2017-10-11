@@ -7,21 +7,30 @@ export default async function () {
     const hasSW = !!navigator.serviceWorker;
     // test if we suggest navigator.serviceWorker
     await store.put('feature', Number(hasSW), 'navigator.serviceWorker');
+
     if (!hasSW) {
         return;
     }
-    try {
-        const sw = await navigator.serviceWorker.register('/auto/global-sw.js', {scope: '/auto/'});
-        console.log('Registered!', sw);
-        await store.put('feature', 1, 'Registered');
-        await sleep(3000);
-        await sw.unregister();
-        console.log('Unregistered');
-        await store.put('feature', 1, 'Unregistered');
 
-    }
-    catch (e) {
-        console.log('err global');
-        console.log(e);
-    }
+    const sw = await navigator.serviceWorker.register('/auto/global-sw.js', {scope: '/auto/'});
+    console.log('Registered!', sw);
+    await store.put('feature', 1, 'Registered');
+    await sleep(3000);
+    await sw.unregister();
+    console.log('Unregistered');
+    await store.put('feature', 1, 'Unregistered');
+    // try {
+    //     const sw = await navigator.serviceWorker.register('/auto/global-sw.js', {scope: '/auto/'});
+    //     console.log('Registered!', sw);
+    //     await store.put('feature', 1, 'Registered');
+    //     await sleep(3000);
+    //     await sw.unregister();
+    //     console.log('Unregistered');
+    //     await store.put('feature', 1, 'Unregistered');
+
+    // }
+    // catch (e) {
+    //     console.log('err global');
+    //     console.log(e);
+    // }
 }

@@ -95,84 +95,84 @@ document.body.appendChild(wrapper);
 
 // }, 200);
 
-window.console.log = function (msg) {
-    msg = JSON.stringify(msg);
+// window.console.log = function (msg) {
+//     msg = JSON.stringify(msg);
 
-    if (typeof window.document !== 'undefined') {
-        let div = document.createElement('div');
-        div.style.wordBreak = 'break-all';
-        div.innerHTML = msg;
-        wrapper.appendChild(div);
-    }
-    else {
-        store.get('log', 'stack')
-        .then(data => {
-            if (data) {
-                data.push(msg);
-            }
-            else {
-                data = [msg];
-            }
+//     if (typeof window.document !== 'undefined') {
+//         let div = document.createElement('div');
+//         div.style.wordBreak = 'break-all';
+//         div.innerHTML = msg;
+//         wrapper.appendChild(div);
+//     }
+//     else {
+//         store.get('log', 'stack')
+//         .then(data => {
+//             if (data) {
+//                 data.push(msg);
+//             }
+//             else {
+//                 data = [msg];
+//             }
 
-            store.put('log', data, 'stack');
-        });
-    }
-};
+//             store.put('log', data, 'stack');
+//         });
+//     }
+// };
 
-window.console.error = function (msg) {
-    msg = JSON.stringify(msg);
+// window.console.error = function (msg) {
+//     msg = JSON.stringify(msg);
 
-    if (typeof window.document !== 'undefined') {
-        let div = document.createElement('div');
-        div.style.wordBreak = 'break-all';
-        div.style.color = '#f00';
-        div.innerHTML = msg;
-        wrapper.appendChild(div);
-    }
-    else {
-        store.get('log', 'stack')
-        .then(data => {
-            if (data) {
-                data.push(msg);
-            }
-            else {
-                data = [msg];
-            }
+//     if (typeof window.document !== 'undefined') {
+//         let div = document.createElement('div');
+//         div.style.wordBreak = 'break-all';
+//         div.style.color = '#f00';
+//         div.innerHTML = msg;
+//         wrapper.appendChild(div);
+//     }
+//     else {
+//         store.get('log', 'stack')
+//         .then(data => {
+//             if (data) {
+//                 data.push(msg);
+//             }
+//             else {
+//                 data = [msg];
+//             }
 
-            store.put('log', data, 'stack');
-        });
-    }
-};
+//             store.put('log', data, 'stack');
+//         });
+//     }
+// };
 
-function tictok() {
-    return setTimeout(() => {
-        // oldConsoleLog('-- tictok --');
-        store.get('log', 'stack')
-        .then(stack => {
-            if (stack) {
-                stack = JSON.parse(stack);
-                stack.forEach(msg => {
-                    console.log(msg);
-                });
-                store.put('log', '[]', 'stack');
-            }
+// function tictok() {
+//     return setTimeout(() => {
+//         // oldConsoleLog('-- tictok --');
+//         store.get('log', 'stack')
+//         .then(stack => {
+//             if (stack) {
+//                 stack = JSON.parse(stack);
+//                 stack.forEach(msg => {
+//                     console.log(msg);
+//                 });
+//                 store.put('log', '[]', 'stack');
+//             }
 
-            // return tictok();
-        })
-        .catch(() => {})
-        .then(() => {
-            return tictok();
-        })
-    }, 200);
-}
+//             // return tictok();
+//         })
+//         .catch(() => {})
+//         .then(() => {
+//             return tictok();
+//         })
+//     }, 200);
+// }
 
-window.onerror = function (msg) {
-    console.error('There is some uncatched error:');
-    console.log(msg);
-    console.log('--- --- ---');
-};
+// window.onerror = function (msg) {
+//     console.error('There is some uncatched error:');
+//     console.log(msg);
+//     console.log('--- --- ---');
+// };
 
-tictok();
+// tictok();
 // document.querySelector('.lang-switch').addEventListener('click', function (evt) {
 //     evt.preventDefault();
 //     const lang = Array.from(evt.target.classList).indexOf('zh') > -1 ? 'zh' : 'en';

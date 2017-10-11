@@ -1,7 +1,7 @@
 import store from 'store';
-import {sleep, registerConsole} from 'utils';
+import {sleep} from 'utils';
 
-registerConsole();
+// registerConsole();
 
 self.onmessage = async function (event) {
     await store.put('feature', 1, 'sw-msg-got');

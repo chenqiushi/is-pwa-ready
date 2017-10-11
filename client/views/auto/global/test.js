@@ -21,8 +21,9 @@ export default async function (context = window, base) {
                 result['indexedDB.getAll'] = Number(!!allTest);
             }
             catch (err) {
-                console.log('err global test');
+                console.log('err in indexedDB test');
                 console.error(err);
+
                 result['indexedDB.getAll'] = 0;
             }
         }

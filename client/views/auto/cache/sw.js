@@ -1,7 +1,7 @@
 import store from 'store';
-import {registerConsole} from 'utils';
+// import {registerConsole} from 'utils';
 
-registerConsole();
+// registerConsole();
 
 self.oninstall = function (event) {
     const baseUrl = '/auto/cache/';
