@@ -1,4 +1,8 @@
 import store from 'store';
+import {registerConsole} from 'utils';
+
+registerConsole();
+
 self.oninstall = function (event) {
     const baseUrl = '/auto/cache/';
     /* eslint-disable max-statements */
