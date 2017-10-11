@@ -42,24 +42,24 @@ info.totalSchedule = 8;
 main();
 
 async function main() {
-    console.log('main');
-    console.log(navigator.serviceWorker.controller);
+    // console.log('main');
+    // console.log(navigator.serviceWorker.controller);
     // console.log('in main...');
     // let sw = navigator.serviceWorker;
-    navigator.serviceWorker.oncontrollerchange = function (event) {
-        console.log(Date.now() + ': controllerchange 1');
-        console.log(event);
-    };
+    // navigator.serviceWorker.oncontrollerchange = function (event) {
+    //     console.log(Date.now() + ': controllerchange 1');
+    //     console.log(event);
+    // };
 
     // sw.addEventListener('oncontrollerchange', function (event) {
     //     console.log(Date.now() + ': controllerchange 2');
     //     console.log(event);
     // });
 
-    navigator.serviceWorker.addEventListener('controllerchange', function (event) {
-        console.log(Date.now() + ': controllerchange 3');
-        console.log(event);
-    });
+    // navigator.serviceWorker.addEventListener('controllerchange', function (event) {
+    //     console.log(Date.now() + ': controllerchange 3');
+    //     console.log(event);
+    // });
 
     const step = localStorage.getItem('step') || 'init';
     /* eslint-disable no-fallthrough */
@@ -75,9 +75,10 @@ async function main() {
 
         case 'empty':
             await empty();
-            await result();
+            // await result();
 
         case 'lifecycle':
+            await result();
             await lifecycleTest();
             await result();
 

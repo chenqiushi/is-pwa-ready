@@ -38,7 +38,14 @@ async function controllerchangeCauseByNormalInstall(evt) {
 function genWaiter(fn) {
     // return promisifyOneTimeEventListener(fn, navigator.serviceWorker, 'controllerchange');
     return Promise.race([
-        promisifyOneTimeEventListener(fn, navigator.serviceWorker, 'controllerchange'),
+        promisifyOneTimeEventListener(
+            e => {
+                console.log('Controller Change...');
+                fn(e);
+            },
+            navigator.serviceWorker,
+            'controllerchange'
+        ),
         sleep(5000).then(() => {
             console.log('After sleep for 5s...');
             fn();
@@ -74,7 +81,7 @@ export default async function () {
     }
     else {
         localStorage.setItem('step', 'lifecycle');
-        await sleep(5000);
+        await sleep(3000);
         window.location.reload();
         return await sleep(5000);
     }
@@ -89,7 +96,7 @@ export default async function () {
     }
     console.log('Register waiter...');
     const waiter = genWaiter(controllerchangeCauseByNormalInstall);
-    await sleep(500);
+    // await sleep(500);
     // console.log('Start to register sw...');
     // register test, including install event, controllerchange, activate event
     const reg = await navigator.serviceWorker.register('/auto/lifecycle-sw.js', {scope: '/auto/'});

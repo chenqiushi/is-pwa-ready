@@ -126,15 +126,15 @@ module.exports = {
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
         port: 8849,
-        hot: true,
-        inline: true,
+        // hot: true,
+        // inline: true,
         proxy: {
             '/auto': {
                 // target: path.resolve(__dirname, 'dist'),
                 target: {
                     host: 'localhost',
                     protocol: 'http:',
-                    port: '8849'
+                    port: 8849
                 },
                 /* eslint-disable object-shorthand */
                 pathRewrite: function (path, req) {
@@ -219,7 +219,7 @@ module.exports = {
             })
         ]
         : [
-            new webpack.HotModuleReplacementPlugin()
+            // new webpack.HotModuleReplacementPlugin()
         ]
     )
 };

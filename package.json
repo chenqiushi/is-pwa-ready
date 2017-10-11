@@ -4,7 +4,7 @@
   "description": "Tracking the status of PWA in Chinese browser",
   "main": "server/index.js",
   "scripts": {
-    "dev": "npm run generate && webpack-dev-server --hot --inline",
+    "dev": "npm run build && webpack-dev-server",
     "start": "webpack -w & nodemon --watch server --watch views -e js,html,json",
     "node-debug": "webpack -w & nodemon --debug --watch server --watch views -e js,html,json",
     "build": "rm -rf dist && webpack --env.mode='production'",
