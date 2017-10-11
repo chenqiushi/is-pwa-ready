@@ -1,4 +1,6 @@
 import assert from 'assert';
+// import store from 'store';
+
 // **********************  判断   ************************
 // 用于一些关键判断
 // ********************************************************
@@ -27,6 +29,7 @@ export function isObject(obj) {
     // incase of arrow function and array
     return Object(obj) === obj && String(obj) === '[object Object]' && typeof obj !== 'function' && !Array.isArray(obj);
 }
+
 /**
  * 判断是否为数字
  * @param  {anything}  obj [description]
@@ -177,7 +180,26 @@ export function promisifyOneTimeEventListener(fn, target, event) {
 export function uuid() {
     return (S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4() + '-' + Date.now());
 }
+
 // 生成四个随机数
 export function S4() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);
+}
+
+export function waitUntilSWActivated(scope) {
+    return new Promise((resolve, reject) => {
+        let fn = () => {
+            return setTimeout(async () => {
+                let sw = await navigator.serviceWorker.getRegistration(scope);
+                if (sw && sw.active && sw.active.state === 'actived') {
+                    resolve();
+                }
+                else {
+                    return fn();
+                }
+            }, 200);
+        };
+
+        fn();
+    });
 }

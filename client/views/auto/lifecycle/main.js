@@ -71,7 +71,7 @@ export default async function () {
         return;
     }
 
-    console.log('lifecycle test');
+    console.log('-- lifecycle test --');
 
     const step = localStorage.getItem('step');
 
@@ -97,11 +97,12 @@ export default async function () {
     console.log('Register waiter...');
     const waiter = genWaiter(controllerchangeCauseByNormalInstall);
     // await sleep(500);
-    // console.log('Start to register sw...');
+    console.log('Start to register sw...');
     // register test, including install event, controllerchange, activate event
     const reg = await navigator.serviceWorker.register('/auto/lifecycle-sw.js', {scope: '/auto/'});
     console.log('Registered!', reg);
     await waiter;
+    console.log('Waiter Await!');
     // wait for actived event fininshed
     await sleep(5000);
     const activateWaitUntilScore = await store.get('feature', 'activateEvent.waitUntil');

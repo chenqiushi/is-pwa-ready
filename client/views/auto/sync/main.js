@@ -1,6 +1,7 @@
 import store from 'store';
 import {sleep, promisifyOneTimeEventListener} from 'utils';
 export default async function () {
+    console.log('-- sync test --');
     const hasSW = !!navigator.serviceWorker;
     if (!hasSW) {
         return;

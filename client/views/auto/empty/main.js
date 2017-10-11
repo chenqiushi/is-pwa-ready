@@ -1,6 +1,6 @@
 import {sleep} from 'utils';
 export default async function () {
-    console.log('empty test');
+    console.log('-- empty test --');
     // const search = search2obj();
     // let {step = 0} = search;
     // step = parseInt(step, 10);

@@ -31,6 +31,7 @@ function urlB64ToUint8Array(base64String) {
 
 /* eslint-disable max-statements */
 export default async function () {
+    console.log('-- push test --');
     require('whatwg-fetch');
     for (let i = list.length - 1; i > -1; i--) {
         await store.put('feature', 0, list[i]);

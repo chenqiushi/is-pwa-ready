@@ -45,7 +45,7 @@ export default async function () {
     if (!hasSW) {
         return;
     }
-    console.log('post message test');
+    console.log('-- post message test --');
     const messageWaiter = genWaiter();
     console.log(navigator.serviceWorker);
     const activatedWaiter = Promise.race([

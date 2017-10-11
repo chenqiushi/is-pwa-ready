@@ -22,11 +22,11 @@ import {info} from './helper';
 // import 'views/common/raven';
 
 window.addEventListener('unhandledrejection', function (event) {
-    let str = JSON.stringify(event);
-    let div = document.createElement('div');
-    div.style.wordBreak = 'break-all';
-    div.innerHTML = str;
-    document.body.appendChild(div);
+    // let str = JSON.stringify(event);
+    // let div = document.createElement('div');
+    // div.style.wordBreak = 'break-all';
+    // div.innerHTML = str;
+    // document.body.appendChild(div);
     console.warn('WARNING: Unhandled promise rejection. Shame on you! Reason: ' + event.reason);
 });
 
