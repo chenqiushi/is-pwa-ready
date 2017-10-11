@@ -31,7 +31,8 @@ window.addEventListener('unhandledrejection', function (event) {
 });
 
 document.querySelector('.test-again').addEventListener('click', function (e) {
-    main();
+    localStorage.setItem('step', '');
+    location.reload();
 });
 
 info.totalSchedule = 8;

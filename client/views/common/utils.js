@@ -191,7 +191,7 @@ export async function reload(stepName) {
     }
     else {
         localStorage.setItem('step', stepName);
-        // await sleep(3000);
+        await sleep(3000);
         window.location.reload();
         return await sleep(5000);
     }
