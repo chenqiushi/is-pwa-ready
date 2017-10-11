@@ -1,6 +1,6 @@
 import store from 'store';
-import Raven from 'raven';
-import {isNumeric, uuid} from 'utils';
+// import Raven from 'raven';
+import {isNumeric} from 'utils';
 import {featureKeys, info, testTips} from '../helper';
 // import {info, testTips} from '../helper';
 function genRGB(score) {
@@ -59,10 +59,10 @@ export default async function (noAdd) {
         // console.log(info.totalSchedule)
         // console.log('-----------')
         info.timeoutTimer = setTimeout(async () => {
-            Raven.setUserContext({result});
-            Raven.captureMessage('test-failed-' + uuid(), {
-                level: 'warning'
-            });
+            // Raven.setUserContext({result});
+            // Raven.captureMessage('test-failed-' + uuid(), {
+            //     level: 'warning'
+            // });
             document.querySelector('.schedule').innerHTML = testTips.fail;
         }, 15000);
     }
