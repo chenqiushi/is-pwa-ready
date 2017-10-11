@@ -50,6 +50,10 @@ export default async function () {
     document.querySelector('.schedule span').innerHTML = ~~(showSchedule) + '%';
     await store.put('info', schedule, 'schedule');
     if (schedule !== info.totalSchedule) {
+        // console.log('some error ?------')
+        // console.log(schedule)
+        // console.log(info.totalSchedule)
+        // console.log('-----------')
         info.timeoutTimer = setTimeout(async () => {
             Raven.setUserContext({result});
             Raven.captureMessage('test-failed-' + uuid(), {

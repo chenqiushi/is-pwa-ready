@@ -42,7 +42,7 @@ info.totalSchedule = 8;
 main();
 
 async function main() {
-    // console.log('main');
+    console.log('main');
     // console.log(navigator.serviceWorker.controller);
     // console.log('in main...');
     // let sw = navigator.serviceWorker;
@@ -75,10 +75,10 @@ async function main() {
 
         case 'empty':
             await empty();
-            // await result();
+            await result();
 
         case 'lifecycle':
-            await result();
+            // await result();
             await lifecycleTest();
             await result();
 
