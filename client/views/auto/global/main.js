@@ -10,11 +10,18 @@ export default async function () {
     if (!hasSW) {
         return;
     }
-    const sw = await navigator.serviceWorker.register('/auto/global-sw.js', {scope: '/auto/'});
-    console.log('Registered!', sw);
-    await store.put('feature', 1, 'Registered');
-    await sleep(3000);
-    await sw.unregister();
-    console.log('Unregistered');
-    await store.put('feature', 1, 'Unregistered');
+    try {
+        const sw = await navigator.serviceWorker.register('/auto/global-sw.js', {scope: '/auto/'});
+        console.log('Registered!', sw);
+        await store.put('feature', 1, 'Registered');
+        await sleep(3000);
+        await sw.unregister();
+        console.log('Unregistered');
+        await store.put('feature', 1, 'Unregistered');
+
+    }
+    catch (e) {
+        console.log('err global');
+        console.log(e);
+    }
 }

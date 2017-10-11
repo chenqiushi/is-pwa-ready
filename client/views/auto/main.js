@@ -12,7 +12,7 @@ import env from './env/main';
 import summary from './summary/main';
 import cache from './cache/main';
 import push from './push/main';
-// import {sleep} from 'utils';
+import {reload} from 'utils';
 // import {search2obj, obj2search, uuid, isNumeric} from 'utils';
 // import store from 'store';
 // import axios from 'axios';
@@ -74,27 +74,38 @@ async function main() {
             await result();
 
         case 'empty':
+            await reload('empty');
+            await result(true);
             await empty();
             await result();
 
         case 'lifecycle':
+            await reload('lifecycle');
             await result(true);
             await lifecycleTest();
             await result();
 
         case 'postmessage':
+            await reload('postmessage');
+            await result(true);
             await postmessageTest();
             await result();
 
         case 'sync':
+            await reload('sync');
+            await result(true);
             await syncTest();
             await result();
 
         case 'cache':
+            await reload('cache');
+            await result(true);
             await cache();
             await result();
 
         case 'push':
+            await reload('push');
+            await result(true);
             await push();
             await result();
 

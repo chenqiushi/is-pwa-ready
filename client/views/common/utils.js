@@ -181,6 +181,22 @@ export function uuid() {
     return (S4() + S4() + '-' + S4() + '-' + S4() + '-' + S4() + '-' + S4() + S4() + S4() + '-' + Date.now());
 }
 
+// reload
+export async function reload(stepName) {
+    const step = localStorage.getItem('step');
+
+    if (step === stepName) {
+        localStorage.setItem('step', '');
+        // await sleep(5000);
+    }
+    else {
+        localStorage.setItem('step', stepName);
+        await sleep(3000);
+        window.location.reload();
+        return await sleep(5000);
+    }
+}
+
 // 生成四个随机数
 export function S4() {
     return (((1 + Math.random()) * 0x10000) | 0).toString(16).substring(1);

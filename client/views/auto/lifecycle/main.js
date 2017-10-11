@@ -1,5 +1,5 @@
 import store from 'store';
-import {sleep, promisifyOneTimeEventListener} from 'utils';
+import {sleep, promisifyOneTimeEventListener, reload} from 'utils';
 import 'whatwg-fetch';
 
 const list = [
@@ -73,18 +73,18 @@ export default async function () {
 
     console.log('-- lifecycle test --');
 
-    const step = localStorage.getItem('step');
+    // const step = localStorage.getItem('step');
 
-    if (step === 'lifecycle') {
-        localStorage.setItem('step', '');
-        // await sleep(5000);
-    }
-    else {
-        localStorage.setItem('step', 'lifecycle');
-        await sleep(3000);
-        window.location.reload();
-        return await sleep(5000);
-    }
+    // if (step === 'lifecycle') {
+    //     localStorage.setItem('step', '');
+    //     // await sleep(5000);
+    // }
+    // else {
+    //     localStorage.setItem('step', 'lifecycle');
+    //     await sleep(3000);
+    //     window.location.reload();
+    //     return await sleep(5000);
+    // }
 
     await Promise.all(
         list.map(item => store.put('feature', 0, item))
