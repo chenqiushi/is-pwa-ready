@@ -1,5 +1,6 @@
 import store from 'store';
 import {promisifyOneTimeEventListener, sleep} from 'utils';
+
 let messageChannel;
 function genWaiter() {
     const tasks = [];

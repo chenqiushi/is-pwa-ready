@@ -1,5 +1,8 @@
 import store from 'store';
-import {sleep} from 'utils';
+import {sleep, registerConsole} from 'utils';
+
+registerConsole();
+
 self.onmessage = async function (event) {
     await store.put('feature', 1, 'sw-msg-got');
     await store.put('feature', Number(!!self.clients.matchAll), 'clients.matchAll');

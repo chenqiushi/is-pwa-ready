@@ -1,5 +1,9 @@
 import store from 'store';
-import {sleep} from 'utils';
+import {sleep, registerConsole} from 'utils';
+
+// import {registerConsole} from 'utils';
+
+registerConsole();
 
 let installWaitUntilFlag = false;
 let skipWaitingFlag = false;

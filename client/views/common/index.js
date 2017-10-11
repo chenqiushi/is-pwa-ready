@@ -89,6 +89,8 @@ wrapper.style.wordBreak = 'break-all';
 wrapper.style.background = '#dcdcdc';
 document.body.appendChild(wrapper);
 
+// let oldConsoleLog = window.console.log;
+
 // setInterval(() => {
 
 // }, 200);
@@ -144,15 +146,21 @@ window.console.error = function (msg) {
 
 function tictok() {
     return setTimeout(() => {
+        // oldConsoleLog('-- tictok --');
         store.get('log', 'stack')
         .then(stack => {
             if (stack) {
+                stack = JSON.parse(stack);
                 stack.forEach(msg => {
                     console.log(msg);
                 });
-                store.put('log', [], 'stack');
+                store.put('log', '[]', 'stack');
             }
 
+            // return tictok();
+        })
+        .catch(() => {})
+        .then(() => {
             return tictok();
         })
     }, 200);

@@ -1,5 +1,5 @@
 import assert from 'assert';
-// import store from 'store';
+import store from 'store';
 
 // **********************  判断   ************************
 // 用于一些关键判断
@@ -202,4 +202,47 @@ export function waitUntilSWActivated(scope) {
 
         fn();
     });
+}
+
+export function registerConsole() {
+    self.console.log = function (msg) {
+        if (typeof msg !== 'string') {
+            msg = JSON.stringify(msg);
+        }
+
+        store.get('log', 'stack')
+        .then(data => {
+            if (data) {
+                data = JSON.parse(data);
+                data.push(msg);
+            }
+            else {
+                data = [msg];
+            }
+
+            data = JSON.stringify(data);
+            store.put('log', data, 'stack');
+        });
+    };
+
+    self.console.error = function (msg) {
+        if (typeof msg !== 'string') {
+            msg = JSON.stringify(msg);
+        }
+
+        store.get('log', 'stack')
+        .then(data => {
+            if (data) {
+                data = JSON.parse(data);
+                data.push(msg);
+            }
+            else {
+                data = [msg];
+            }
+
+            data = JSON.stringify(data);
+
+            store.put('log', data, 'stack');
+        });
+    };
 }

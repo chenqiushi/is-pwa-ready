@@ -1,3 +1,7 @@
+import {registerConsole} from 'utils';
+
+registerConsole();
+
 console.log('i am empty');
 
 // self.addEventListener('install', function (event) {
