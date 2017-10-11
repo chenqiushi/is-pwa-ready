@@ -78,7 +78,7 @@ async function main() {
             await result();
 
         case 'lifecycle':
-            // await result();
+            await result(true);
             await lifecycleTest();
             await result();
 
