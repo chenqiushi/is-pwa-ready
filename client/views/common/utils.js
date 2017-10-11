@@ -1,5 +1,5 @@
 import assert from 'assert';
-import store from 'store';
+// import store from 'store';
 
 // **********************  判断   ************************
 // 用于一些关键判断

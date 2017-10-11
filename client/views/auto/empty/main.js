@@ -2,7 +2,7 @@ import {sleep} from 'utils';
 export default async function () {
     console.log('-- empty test --');
 
-    const step = localStorage.getItem('step');
+    // const step = localStorage.getItem('step');
 
     // if (step === 'empty') {
     //     localStorage.setItem('step', '');
@@ -18,19 +18,21 @@ export default async function () {
     // let {step = 0} = search;
     // step = parseInt(step, 10);
     // step++;
-    const hasSW = !!navigator.serviceWorker;
-    if (hasSW) {
-        try {
-            console.log('start empty');
-            await navigator.serviceWorker.register('/auto/empty-sw.js', {scope: '/auto/'});
-            console.log('mid empty');
-            await sleep(5000);
-            console.log('end empty');
-        }
-        catch (e) {
-            console.log('err empty');
-            console.log(e);
-        }
+    // const hasSW = !!navigator.serviceWorker;
+    if (navigator.serviceWorker) {
+        await navigator.serviceWorker.register('/auto/empty-sw.js', {scope: '/auto/'});
+        await sleep(3000);
+        // try {
+        //     console.log('start empty');
+        //     await navigator.serviceWorker.register('/auto/empty-sw.js', {scope: '/auto/'});
+        //     console.log('mid empty');
+        //     await sleep(5000);
+        //     console.log('end empty');
+        // }
+        // catch (e) {
+        //     console.log('err empty');
+        //     console.log(e);
+        // }
     }
     // localStorage.setItem('from', 'step0');
     // location.search = obj2search(Object.assign(search, {step}));
