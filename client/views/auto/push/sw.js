@@ -1,4 +1,8 @@
 import store from 'store';
+// import {registerConsole} from 'utils';
+
+// registerConsole();
+
 self.addEventListener('push', function (event) {
   // const options = event.data.json()
   // console.log(options)

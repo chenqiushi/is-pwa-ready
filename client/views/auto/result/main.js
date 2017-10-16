@@ -1,5 +1,6 @@
 import store from 'store';
-import {isNumeric, uuid} from 'utils';
+// import Raven from 'raven';
+import {isNumeric} from 'utils';
 import {featureKeys, info, testTips} from '../helper';
 // import {info, testTips} from '../helper';
 function genRGB(score) {
@@ -10,8 +11,9 @@ function genRGB(score) {
         24
     ];
 }
-import Raven from 'raven';
-export default async function () {
+
+// noAdd 参数表示测试项是否加1， true 是不加
+export default async function (noAdd) {
     info.timeoutTimer && clearTimeout(info.timeoutTimer);
     document.querySelector('tbody').innerHTML = '';
     let resultHTML = '';
@@ -44,17 +46,23 @@ export default async function () {
     document.querySelector('.total-score').innerHTML = ~~(rank * 100);
     let schedule = await store.get('info', 'schedule');
     schedule = parseFloat(schedule || 0);
-    schedule = ++schedule;
+    if (!noAdd) {
+        schedule = ++schedule;
+    }
     let showSchedule = (schedule / info.totalSchedule * 100) % 100;
     showSchedule = schedule && !showSchedule ? 100 : showSchedule;
     document.querySelector('.schedule span').innerHTML = ~~(showSchedule) + '%';
     await store.put('info', schedule, 'schedule');
     if (schedule !== info.totalSchedule) {
+        // console.log('some error ?------')
+        // console.log(schedule)
+        // console.log(info.totalSchedule)
+        // console.log('-----------')
         info.timeoutTimer = setTimeout(async () => {
-            Raven.setUserContext({result});
-            Raven.captureMessage('test-failed-' + uuid(), {
-                level: 'warning'
-            });
+            // Raven.setUserContext({result});
+            // Raven.captureMessage('test-failed-' + uuid(), {
+            //     level: 'warning'
+            // });
             document.querySelector('.schedule').innerHTML = testTips.fail;
         }, 15000);
     }

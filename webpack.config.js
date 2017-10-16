@@ -26,7 +26,7 @@ var mode = process.env.NODE_ENV || 'development';
 // let mode = process.env.NODE_ENV || 'development';
 
 var viewRoot = './client/views/auto/';
-var staticRoot = './dist';
+var staticRoot = './dist/auto';
 // const jsFiles = glob.sync(viewRoot + 'main.js');
 
 // let entry = {
@@ -67,7 +67,7 @@ module.exports = {
         // filename: mode === 'development' ? 'js/[name].js' : 'js/[name]-[chunkhash].js',
         // chunkFilename: mode === 'development' ? 'js/[name].js' : 'js/[name]-[chunkhash].js',
         path: path.resolve(staticRoot),
-        publicPath: '/dist/'
+        publicPath: '/dist/auto/'
         // publicPath: mode === 'development' ? '/dist/' : 'https://resource.toxicjohann.com/ispwaready/'
     },
     module: {
@@ -125,30 +125,31 @@ module.exports = {
     },
     devServer: {
         contentBase: path.join(__dirname, 'dist'),
-        port: 8849,
-        hot: true,
-        inline: true,
-        proxy: {
-            '/auto': {
-                // target: path.resolve(__dirname, 'dist'),
-                target: {
-                    host: 'localhost',
-                    protocol: 'http:',
-                    port: '8849'
-                },
-                /* eslint-disable object-shorthand */
-                pathRewrite: function (path, req) {
-                    console.log('got path:' + path);
-                    return path.replace(/^\/auto/, '');
-                }
-            }
-        }
+        port: 8849
+        // ,
+        // hot: true,
+        // inline: true,
+        // proxy: {
+        //     '/auto': {
+        //         // target: path.resolve(__dirname, 'dist'),
+        //         target: {
+        //             host: 'localhost',
+        //             protocol: 'http:',
+        //             port: 8849
+        //         },
+        //         /* eslint-disable object-shorthand */
+        //         pathRewrite: function (path, req) {
+        //             console.log('got path:' + path);
+        //             return path.replace(/^\/auto/, '');
+        //         }
+        //     }
+        // }
     },
     plugins: [
         new webpack.LoaderOptionsPlugin({
             options: {
                 output: {
-                    publicPath: '/dist/'
+                    publicPath: '/dist/auto/'
                 },
                 postcss: [
                     require('postcss-import')({
@@ -179,7 +180,7 @@ module.exports = {
         new CopyWebpackPlugin([
             {
                 from: path.resolve(__dirname, 'static/cache'),
-                to: path.resolve(__dirname, 'dist/cache')
+                to: path.resolve(__dirname, 'dist/auto/cache')
             },
             // {
             //     from: path.resolve(__dirname, 'static/js/auto'),
@@ -187,11 +188,11 @@ module.exports = {
             // },
             {
                 from: path.resolve(__dirname, 'static/manifest.json'),
-                to: path.resolve(__dirname, 'dist')
+                to: path.resolve(__dirname, 'dist/auto')
             },
             {
                 from: path.resolve(__dirname, 'static/index.html'),
-                to: path.resolve(__dirname, 'dist/index.html')
+                to: path.resolve(__dirname, 'dist/auto/index.html')
             }
             // ,
             // {
@@ -219,7 +220,7 @@ module.exports = {
             })
         ]
         : [
-            new webpack.HotModuleReplacementPlugin()
+            // new webpack.HotModuleReplacementPlugin()
         ]
     )
 };

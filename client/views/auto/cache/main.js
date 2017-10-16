@@ -18,6 +18,8 @@ function genWaiter() {
     ]);
 }
 export default async function () {
+    console.log('-- cache test --');
+
     for (let i = list.length - 1; i > -1; i--) {
         await store.put('feature', 0, list[i]);
     }

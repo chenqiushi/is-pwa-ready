@@ -1,4 +1,8 @@
 import store from 'store';
+// import {registerConsole} from 'utils';
+
+// registerConsole();
+
 self.oninstall = function () {
     self.skipWaiting();
 };

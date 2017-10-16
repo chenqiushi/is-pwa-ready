@@ -1,5 +1,6 @@
 import store from 'store';
 import {promisifyOneTimeEventListener, sleep} from 'utils';
+
 let messageChannel;
 function genWaiter() {
     const tasks = [];
@@ -45,6 +46,8 @@ export default async function () {
     if (!hasSW) {
         return;
     }
+    console.log('-- post message test --');
+
     const messageWaiter = genWaiter();
     console.log(navigator.serviceWorker);
     const activatedWaiter = Promise.race([
